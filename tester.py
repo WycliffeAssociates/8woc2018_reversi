@@ -56,6 +56,8 @@ def execute_test(test, executable):
     """ Execute single test """
     result = {}
     stdin = json.dumps(test["input"])
+    if sys.platform == 'win32':
+        executable = ["python.exe", executable]
     stdout = subprocess.check_output(executable,
                                      input=stdin.encode("utf-8"))
     output = json.loads(stdout.decode("utf-8"))
